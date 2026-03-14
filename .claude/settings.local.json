@@ -4,7 +4,17 @@
       "Bash(cd D:/Projects/uigen && NODE_OPTIONS=\"--require ./node-compat.cjs\" npx next dev --turbopack)",
       "Bash(npx vitest:*)",
       "mcp__playwright",
-      "Bash(npm audit:*)"
+      "Bash(npm audit:*)",
+      "WebFetch(domain:localhost)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000)",
+      "Bash(curl -s -X POST http://localhost:3000/api/chat \\\\\n  -H \"Content-Type: application/json\" \\\\\n  -d '{\"messages\":[{\"role\":\"user\",\"content\":\"Create a simple pricing card component\"}]}' \\\\\n  --max-time 60 2>&1 | head -200)",
+      "Bash(curl -v -X POST http://localhost:3000/api/chat \\\\\n  -H \"Content-Type: application/json\" \\\\\n  -d '{\"messages\":[{\"role\":\"user\",\"content\":\"Create a simple pricing card component\"}]}' \\\\\n  --max-time 60 2>&1 | tail -100)",
+      "Bash(curl -s -X POST http://localhost:3000/api/chat \\\\\n  -H \"Content-Type: application/json\" \\\\\n  -d '{\"messages\":[{\"role\":\"user\",\"content\":\"Create a simple pricing card component\"}],\"files\":{}}' \\\\\n  --max-time 60 2>&1)",
+      "Bash(curl -s -X POST http://localhost:3000/api/chat \\\\\n  -H \"Content-Type: application/json\" \\\\\n  -d '{\"messages\":[{\"role\":\"user\",\"content\":\"Create a simple pricing card component\"}],\"files\":{}}' \\\\\n  --max-time 90 2>&1 | grep -E '\"file_text\"|\"args\"' | head -20)",
+      "Bash(start http://localhost:3000)",
+      "Bash(npx playwright:*)",
+      "Bash(cd D:/Projects/uigen && npm install --save-dev playwright 2>&1 | tail -5)",
+      "Bash(cd D:/Projects/uigen && node -e \"\nconst { chromium } = require\\('playwright'\\);\n\n\\(async \\(\\) => {\n  const browser = await chromium.launch\\({ headless: false, slowMo: 500 }\\);\n  const page = await browser.newPage\\(\\);\n  await page.setViewportSize\\({ width: 1400, height: 900 }\\);\n\n  console.log\\('Navigating...'\\);\n  await page.goto\\('http://localhost:3000', { waitUntil: 'networkidle' }\\);\n\n  console.log\\('Looking for input...'\\);\n  const input = await page.waitForSelector\\('textarea', { timeout: 10000 }\\);\n  await input.click\\(\\);\n  await input.fill\\('Create a simple pricing card component'\\);\n  await page.keyboard.press\\('Enter'\\);\n\n  console.log\\('Waiting for generation...'\\);\n  // Wait for a response to appear\n  await page.waitForTimeout\\(5000\\);\n\n  // Wait until loading stops\n  try {\n    await page.waitForFunction\\(\\(\\) => {\n      const spinners = document.querySelectorAll\\('[class*=\\\\\"animate-spin\\\\\"]'\\);\n      return spinners.length === 0;\n    }, { timeout: 60000 }\\);\n  } catch\\(e\\) { console.log\\('Timeout waiting for spinner'\\); }\n\n  await page.waitForTimeout\\(2000\\);\n  await page.screenshot\\({ path: 'C:/Users/hayat/AppData/Local/Temp/generated.png' }\\);\n  console.log\\('Done - screenshot saved'\\);\n  await browser.close\\(\\);\n}\\)\\(\\).catch\\(console.error\\);\n\" 2>&1)"
     ]
   }
 }
