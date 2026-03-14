@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd D:/Projects/uigen && NODE_OPTIONS=\"--require ./node-compat.cjs\" npx next dev --turbopack)"
+    ]
+  }
+}
